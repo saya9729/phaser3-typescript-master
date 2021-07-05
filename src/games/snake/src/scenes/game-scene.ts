@@ -117,7 +117,14 @@ export class GameScene extends Phaser.Scene {
         //angle: -90,
         //gravityY: 2338,
         maxParticles: 4
-    })
+      })
+      // this.add.tween({
+      //   targets:this.player,
+      //   duration:100,
+      //   repeat:5,
+      //   yoyo:true,
+      //   alpha:0
+      // })
       this.player.growSnake();
       CONST.SCORE++;
       this.scoreText.setText('' + CONST.SCORE);

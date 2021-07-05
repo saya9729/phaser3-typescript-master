@@ -130,7 +130,15 @@ export class Enemy extends Phaser.GameObjects.Sprite {
         this.dyingTime -= 10;
       } else {
         this.addPoints();
-        this.destroy();
+        // this.scene.tweens.add({
+        //   targets: this,
+        //   duration: 500,
+        //   alpha: 0,
+        //   onComplete: () => {
+        //     this.destroy()
+        //   }
+        // })
+        this.destroy()
       }
     }
   }

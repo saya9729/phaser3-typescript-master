@@ -33,7 +33,8 @@ export class PlayerTwo {
     this.snakeHead = this.scene.add
       .image(_x, _y, 'player')
       .setOrigin(0.5, 0.5)
-      .setFrame(3);
+      .setFrame(3)
+      .setDepth(1)
 
     // varibles
     this.direction = _direction;

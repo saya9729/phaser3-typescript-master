@@ -4,6 +4,7 @@ export class Block extends Phaser.GameObjects.Sprite {
   private blockType: number;
   private isDying: boolean;
   particle: Phaser.GameObjects.Particles.ParticleEmitterManager;
+  isDead: boolean;
 
   constructor(aParams: IBlockConstructor) {
     super(aParams.scene, aParams.x, aParams.y, aParams.texture, aParams.type);
@@ -14,18 +15,19 @@ export class Block extends Phaser.GameObjects.Sprite {
     this.initSprite();
     this.scene.add.existing(this);
     this.particle = this.scene.add.particles('textures', 'debris.png')
+    this.isDead=false
   }
 
   update(): void {
-    if (this.isDying) {
-      this.alpha -= 0.02;
+    // if (this.isDying) {
+    //   this.alpha -= 0.02;
 
-      if (this.alpha === 0) {
-        this.isDying = false;
-        this.setType(0);
-        this.setAlpha(1);
-      }
-    }
+    //   if (this.alpha === 0) {
+    //     this.isDying = false;
+    //     this.setType(0);
+    //     this.setAlpha(1);
+    //   }
+    // }
   }
 
   private initSprite() {
@@ -43,7 +45,16 @@ export class Block extends Phaser.GameObjects.Sprite {
   }
 
   public activateDead(): void {
-    if (!this.isDying) {
+    this.isDying = true;
+  }
+
+  public getDead(): boolean {
+    return this.isDying;
+  }
+
+  clearBlock() {
+    if (!this.isDead) {
+      this.isDead=true;
       this.particle.createEmitter({
         x: this.x,
         y: this.y,
@@ -53,11 +64,17 @@ export class Block extends Phaser.GameObjects.Sprite {
         //gravityY: 2338,
         maxParticles: 4
       })
+      this.scene.add.tween({
+        targets: this,
+        alpha: 0,
+        duration: 500,
+        onComplete: () => {
+          this.isDying=false
+          this.setAlpha(1)
+          this.setType(0)
+          //super.destroy()
+        }
+      })
     }
-    this.isDying = true;
-  }
-
-  public getDead(): boolean {
-    return this.isDying;
   }
 }

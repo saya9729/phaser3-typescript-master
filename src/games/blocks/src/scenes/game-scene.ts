@@ -61,7 +61,7 @@ export class GameScene extends Phaser.Scene {
         let block = this.currentLevelArray[this.getBlockIndex(x, y)];
 
         if (block.getDead()) {
-          block.update();
+          block.clearBlock();
         } else {
           let upperBlock;
           if (y > 0) {

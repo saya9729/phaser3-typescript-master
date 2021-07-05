@@ -10,7 +10,7 @@ export class GameScene extends Phaser.Scene {
   private score: number;
   private bitmapTexts: Phaser.GameObjects.BitmapText[];
   private gotHit: boolean;
-  private particle: Phaser.GameObjects.Particles.ParticleEmitterManager
+  
   constructor() {
     super({
       key: 'GameScene'
@@ -38,7 +38,7 @@ export class GameScene extends Phaser.Scene {
     );
     this.gotHit = false;
 
-    this.particle = this.add.particles('textures', 'debris.png')
+    
   }
 
   update(): void {
@@ -61,14 +61,6 @@ export class GameScene extends Phaser.Scene {
       this.asteroids[i].update();
 
       if (!this.asteroids[i].active) {
-        this.particle.createEmitter({
-          x: this.asteroids[i].x,
-          y: this.asteroids[i].y,
-          speedY: { min: -200, max: 200 },
-          speedX: { min: -200, max: 200 },
-          maxParticles: 2
-        })
-
         this.spawnAsteroids(
           3,
           this.asteroids[i].getSize() - 1,

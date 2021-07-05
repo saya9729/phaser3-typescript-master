@@ -11,7 +11,7 @@ export class GameScene extends Phaser.Scene {
   // Selected Tiles
   private firstSelectedTile: Tile;
   private secondSelectedTile: Tile;
-  particle: Phaser.GameObjects.Particles.ParticleEmitterManager;
+  
 
   constructor() {
     super({
@@ -45,7 +45,7 @@ export class GameScene extends Phaser.Scene {
     // Check if matches on the start
     this.checkMatches();
 
-    this.particle = this.add.particles('textures', 'debris.png')
+    
   }
 
   /**
@@ -246,15 +246,6 @@ export class GameScene extends Phaser.Scene {
 
         // Remove the tile from the theoretical grid
         if (tilePos.x !== -1 && tilePos.y !== -1) {
-          this.particle.createEmitter({
-            x: tile.x,
-            y: tile.y,
-            speedY: { min: -100, max: 100 },
-            speedX: { min: -100, max: 100 },
-            //angle: -90,
-            //gravityY: 2338,
-            maxParticles: 4
-        })
           tile.destroy();
           this.tileGrid[tilePos.y][tilePos.x] = undefined;
         }

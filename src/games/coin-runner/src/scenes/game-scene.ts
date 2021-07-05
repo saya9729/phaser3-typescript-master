@@ -7,8 +7,7 @@ export class GameScene extends Phaser.Scene {
   private coinsCollectedText: Phaser.GameObjects.Text;
   private collectedCoins: number;
   private player: Player;
-  particle: Phaser.GameObjects.Particles.ParticleEmitterManager;
-
+  
   constructor() {
     super({
       key: 'GameScene'
@@ -59,7 +58,7 @@ export class GameScene extends Phaser.Scene {
       }
     );
 
-    this.particle = this.add.particles('textures', 'debris.png')
+    
   }
 
   update(): void {
@@ -74,15 +73,7 @@ export class GameScene extends Phaser.Scene {
         this.coin.getBounds()
       )
     ) {
-      this.particle.createEmitter({
-        x: this.coin.x,
-        y: this.coin.y,
-        speedY: { min: -100, max: 100 },
-        speedX: { min: -100, max: 100 },
-        //angle: -90,
-        //gravityY: 2338,
-        maxParticles: 4
-    })
+      this.coin.coinClaimed()
       this.updateCoinStatus();
     }
   }

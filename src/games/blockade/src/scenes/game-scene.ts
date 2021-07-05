@@ -119,6 +119,13 @@ export class GameScene extends Phaser.Scene {
             //gravityY: 2338,
             maxParticles: 4
           })
+          this.add.tween({
+            targets:this.player.getHead(),
+            alpha:0,
+            duration:100,
+            repeat:5,
+            yoyo:true
+          })
         } else {
           CONST.P1_SCORE++;
           this.particle.createEmitter({
@@ -129,6 +136,13 @@ export class GameScene extends Phaser.Scene {
             //angle: -90,
             //gravityY: 2338,
             maxParticles: 4
+          })
+          this.add.tween({
+            targets:this.playerTwo.getHead(),
+            alpha:0,
+            duration:100,
+            repeat:5,
+            yoyo:true
           })
         }
 

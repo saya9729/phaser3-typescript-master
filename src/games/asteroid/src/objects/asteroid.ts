@@ -10,6 +10,7 @@ export class Asteroid extends Phaser.GameObjects.Graphics {
   private asteroidRadius: number;
   private sizeOfAsteroid: number;
   private numberOfSides: number;
+  particle: Phaser.GameObjects.Particles.ParticleEmitterManager;
 
   public getRadius(): number {
     return this.radius;
@@ -40,6 +41,8 @@ export class Asteroid extends Phaser.GameObjects.Graphics {
     this.body.setOffset(-this.asteroidRadius, -this.asteroidRadius);
 
     this.scene.add.existing(this);
+
+    this.particle = this.scene.add.particles('textures', 'debris.png')
   }
 
   private initAsteroid(aX: number, aY: number, aSizeOfAsteroid: number): void {
@@ -159,5 +162,27 @@ export class Asteroid extends Phaser.GameObjects.Graphics {
     let num = Math.floor(Math.random() * aMax) + aMin;
     num *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
     return num;
+  }
+  destroy() {    
+    this.particle.createEmitter({
+      x: this.x,
+      y: this.y,
+      speedY: { min: -100, max: 100 },
+      speedX: { min: -100, max: 100 },
+      //angle: -90,
+      //gravityY: 2338,
+      maxParticles: 4
+    })
+    this.scene.add.tween({
+      targets: this,
+      alpha:0,
+      ease: 'Linear',
+      duration: 400,
+      repeat: 0,
+      yoyo: false,
+      onComplete:()=>{
+        super.destroy()
+      }
+    })
   }
 }
